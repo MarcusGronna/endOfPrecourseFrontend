@@ -1,0 +1,9 @@
+body {
+    height: 50rem;
+}
+
+.dataContainer {
+    border: 2px solid black;
+    height: 30rem;
+    width: 30rem;
+}
