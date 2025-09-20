@@ -1,7 +1,8 @@
 const outputContainer = document.querySelector(".dataContainer");
+const baseUrl = "http://localhost:5029/api/addresses";
 
 function dataToShow() {
-  return fetch("http://localhost:5029/api/addresses").then((response) => response.json());
+  return fetch(baseUrl).then((response) => response.json());
 }
 
 dataToShow().then((data) => {
@@ -9,7 +10,7 @@ dataToShow().then((data) => {
 });
 
 async function addAddress() {
-  await fetch("http://localhost:5029/api/addresses", {
+  await fetch(baseUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,3 +24,7 @@ async function addAddress() {
 }
 
 addAddress();
+
+async function deleteAddress() {
+  await fetch();
+}
