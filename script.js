@@ -26,5 +26,9 @@ async function addAddress() {
 addAddress();
 
 async function deleteAddress() {
-  await fetch();
+  await fetch(`${baseUrl}/4`, {
+    method: "DELETE",
+  });
 }
+
+deleteAddress();
