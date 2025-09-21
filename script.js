@@ -1,9 +1,23 @@
 const outputContainer = document.querySelector(".dataContainer");
 const api = "http://localhost:5029/api/addresses";
+const list = document.getElementById("list");
 
-function dataToShow() {
-  return fetch(api).then((response) => response.json());
+async function load() {
+  const res = await fetch(api);
+  const data = await res.json();
+
+  data.forEach((addr) => {
+    const li = document.createElement("li");
+    const address = `${addr.city}: ${addr.street} ${addr.streetNumber}`;
+    const del = document.createElement("button");
+
+    // del.onclick();
+
+    li.append(address);
+    list.append(li);
+  });
 }
+load();
 
 dataToShow().then((data) => {
   outputContainer.textContent = JSON.stringify(data);
@@ -30,5 +44,3 @@ async function deleteAddress() {
     method: "DELETE",
   });
 }
-
-deleteAddress();
