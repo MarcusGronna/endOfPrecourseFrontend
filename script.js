@@ -5,23 +5,24 @@ const list = document.getElementById("list");
 async function load() {
   const res = await fetch(api);
   const data = await res.json();
+  list.innerHTML = "";
 
   data.forEach((addr) => {
     const li = document.createElement("li");
-    const address = `${addr.city}: ${addr.street} ${addr.streetNumber}`;
+    li.textContent = `${addr.id}: ${addr.city}, ${addr.street} ${addr.streetNumber}`;
+
     const del = document.createElement("button");
+    del.textContent = "Delete address";
+    del.onclick = async () => {
+      await fetch(`${api}/${addr.id}`, { method: "DELETE" });
+      load();
+    };
 
-    // del.onclick();
-
-    li.append(address);
+    li.append(del);
     list.append(li);
   });
 }
 load();
-
-dataToShow().then((data) => {
-  outputContainer.textContent = JSON.stringify(data);
-});
 
 async function addAddress() {
   await fetch(api, {
@@ -37,10 +38,4 @@ async function addAddress() {
   });
 }
 
-addAddress();
-
-async function deleteAddress() {
-  await fetch(`${api}/4`, {
-    method: "DELETE",
-  });
-}
+// addAddress();
