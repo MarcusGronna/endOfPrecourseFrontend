@@ -22,20 +22,18 @@ async function load() {
     list.append(li);
   });
 }
-load();
 
-async function addAddress() {
+document.getElementById("createForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const payload = Object.fromEntries(formData.entries());
   await fetch(api, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      city: "Stockholm",
-      street: "Sollentunavägen",
-      streetNumber: "32",
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
-}
+  e.target.reset();
+  load();
+});
 
-// addAddress();
+load();

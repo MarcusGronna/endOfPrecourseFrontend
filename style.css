@@ -2,8 +2,22 @@ body {
     height: 50rem;
 }
 
+li {
+    list-style-type: none;
+    padding: 0.3rem;
+}
+
+input {
+    
+}
+
+button {
+    margin: 0 0 0 0.5rem;
+}
+
 .dataContainer {
     border: 2px solid black;
+    margin: 1rem;
     height: 30rem;
     width: 30rem;
 }
