@@ -57,16 +57,13 @@ document.getElementById("createForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  await fetch(api, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  await postAddress(payload);
+
   form.reset();
   load();
 });
 
-//* Helper function
+//* Helper function PATCH
 async function patchAddress(id, ops) {
   const res = await fetch(`${api}/${id}`, {
     method: "PATCH",
@@ -80,6 +77,15 @@ async function patchAddress(id, ops) {
 
   const msg = await res.text();
   throw new Error(`PATCH failed: ${res.status} ${res.statusText} - ${msg}`);
+}
+
+//* Helper function POST
+async function postAddress(payload) {
+  await fetch(api, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 }
 
 load();
