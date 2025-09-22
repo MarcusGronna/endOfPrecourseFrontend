@@ -33,12 +33,27 @@ document.getElementById("createForm").addEventListener("submit", async (e) => {
   const id = payload.id ?? "";
 
   if (id) {
-    await fetch(`${api}/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json-patch+json" },
-      body: JSON.stringify([{ path: "/city", op: "replace", value: "City" }]),
-    });
-    load();
+    const ops = [];
+
+    // Add replace operation only if input field NOT empty
+    if (payload.city) {
+      ops.push({ op: "replace", path: "/city", value: payload.city });
+    }
+    if (payload.street) {
+      ops.push({ op: "replace", path: "/street", value: payload.street });
+    }
+    if (payload.streetNumber) {
+      ops.push({ op: "replace", path: "/streetNumber", value: payload.streetNumber });
+    }
+
+    if (ops.length === 0) {
+      alert("No fields to update.");
+      return;
+    }
+
+    await patchAddress(payload.id, ops);
+    form.reset();
+    await load();
     return;
   }
 
@@ -47,7 +62,7 @@ document.getElementById("createForm").addEventListener("submit", async (e) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
-  e.target.reset();
+  form.reset();
   load();
 });
 
