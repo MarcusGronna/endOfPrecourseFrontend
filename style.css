@@ -1,23 +1,109 @@
+:root {
+    --primary: #2563eb;
+    --darker-primary: #1d4ed8;
+    --accent: #10b981;
+    --text: #1f2937;
+    --bg: #f7fafc;
+    --card: #ffffff;
+    --border: #e5e7eb;
+}
+
+/* Base reset */
+* { box-sizing: border-box; }
+
 body {
-    height: 50rem;
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
 }
 
-li {
-    list-style-type: none;
-    padding: 0.3rem;
+header, footer, main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding; 1rem;
 }
 
-input {
-    
+header nav, footer {
+    min-height: 40px;
+    background: #fff;
+    border-radius: 8px;
 }
 
-button {
-    margin: 0 0 0 0.5rem;
+main {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+}
+@media (min-widht: 800px) {
+    main { grid-template-columns: 1fr 1fr;}
 }
 
 .dataContainer {
-    border: 2px solid black;
-    margin: 1rem;
-    height: 30rem;
-    width: 30rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+#list { margin: 0; padding: 0; list style: none; }
+#list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .6rem .8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+}
+#list li + li { margin-top: .5rem;}
+
+#list li > button {
+    border: 1px solid #fecaca;
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: .4rem .6rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#list li > button:hover { background: #fecaca;}
+
+#createForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+}
+
+#addressId { grid-column: 1 / -1; background-color: #cfc;}
+
+input {
+    width: 100%;
+    padding: .6rem .7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: %fff;
+}
+
+button[type="submit"] {
+    grid-column: 1 / -1;
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    color: #f8fafc;
+    font-weight: 600;
+    padding: .65rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button[type="submit"]:hover { background: var(--darker-primary)}
+
+.dataContainer::before {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    margin-bottom: .5rem;
 }

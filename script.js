@@ -45,7 +45,6 @@ document.getElementById("createForm").addEventListener("submit", async (e) => {
     if (payload.streetNumber) {
       ops.push({ op: "replace", path: "/streetNumber", value: payload.streetNumber });
     }
-
     if (ops.length === 0) {
       alert("No fields to update.");
       return;
