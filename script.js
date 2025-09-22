@@ -25,8 +25,23 @@ async function load() {
 
 document.getElementById("createForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const formData = new FormData(e.target);
+
+  // Read form fields
+  const form = e.target;
+  const formData = new FormData(form);
   const payload = Object.fromEntries(formData.entries());
+  const id = payload.id ?? "";
+
+  if (id) {
+    await fetch(`${api}/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json-patch+json" },
+      body: JSON.stringify([{ path: "/city", op: "replace", value: "City" }]),
+    });
+    load();
+    return;
+  }
+
   await fetch(api, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -35,5 +50,21 @@ document.getElementById("createForm").addEventListener("submit", async (e) => {
   e.target.reset();
   load();
 });
+
+//* Helper function
+async function patchAddress(id, ops) {
+  const res = await fetch(`${api}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json-patch+json",
+    },
+    body: JSON.stringify(ops),
+  });
+
+  if (res.ok) return;
+
+  const msg = await res.text();
+  throw new Error(`PATCH failed: ${res.status} ${res.statusText} - ${msg}`);
+}
 
 load();
